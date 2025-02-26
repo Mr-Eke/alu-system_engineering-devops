@@ -1,13 +1,13 @@
 # reconfigure clients config file with puppet
 
-file_line { 'disable_password_auth':
-  ensure => present,
+file_line { 'Turn off passwd auth':
+  ensure => 'present',
   path   => '/etc/ssh/ssh_config',
   line   => '    PasswordAuthentication no',
 }
 
-file_line { 'set_identity_file':
-  ensure => present,
+file_line { 'Declare identity file':
+  ensure => 'present',
   path   => '/etc/ssh/ssh_config',
-  line   => '    IdentityFile ~/.ssh/id_rsa_alu',
+  line   => '    IdentityFile ~/.ssh/school',
 }
