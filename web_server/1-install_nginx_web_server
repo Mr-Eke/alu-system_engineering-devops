@@ -10,4 +10,4 @@ ufw allow 80  # port listening on
 mkdir -p /var/www/html
 # reassign ownership to user acct
 sudo chown -R $USER:$USER /var/ww/html
-echo "Holberton School" | sudo tee /var/www/html/index.html
+echo "Holberton School for the win!" | sudi tee /var/www/html/index.html
