@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+# Permanently redirects /redirect_me to another page.
+
+redirection_str="server_name _;\\
+	rewrite ^/redirect_me https://github.com/El-gibbor permanent;"
+
+# Insert redirection in nginx config file
+sudo sed -i "s|server_name _;|$redirection_str|" /etc/nginx/sites-available/default
