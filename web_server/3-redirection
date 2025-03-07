@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Install nginx on server, listening on port 80 (default),
-# and return a page that contains the expected output string
+# & return a page that contains the expected output string
 
 sudo apt-get -y update
 sudo apt-get -y install nginx
