@@ -1,16 +1,9 @@
 #!/usr/bin/env bash
-# Install nginx on server, listening on port 80 (default),
-# & return a page that contains the expected output string
+# Script that installs Nginx server and redirects /redirect_me
 
 sudo apt-get -y update
 sudo apt-get -y install nginx
-
-ufw allow 80  # port listening on
-
-mkdir -p /var/www/html
-# reassign ownership to user acct
-sudo chown -R "$USER":"$USER" /var/www/html
+sudo ufw allow 'Nginx HTTP'
 echo "Holberton School" | sudo tee /var/www/html/index
-
 sudo sed -i '/listen 80 default_server/a rewrite ^/redirect_me https://www.youtube.com/watch?v=QH2-TGUlwu4/ permanent;' /etc/nginx/sites-available/default
 sudo service nginx restart
