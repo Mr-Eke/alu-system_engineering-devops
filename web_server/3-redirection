@@ -1,8 +1,16 @@
 #!/usr/bin/env bash
-# Permanently redirects /redirect_me to another page.
+# Install nginx on web-01 server, listening on port 80 (default),
+# and return a page that contains the expected output string
 
-redirection_str="server_name _;\\
-	rewrite ^/redirect_me https://github.com/El-gibbor permanent;"
+sudo apt-get -y update
+sudo apt-get -y install nginx
+ufw allow 80
 
-# Insert redirection in nginx config file
-sudo sed -i "s|server_name _;|$redirection_str|" /etc/nginx/sites-available/default
+# reassign ownership to user acct so that they can be writeable
+sudo chown -R "$USER":"$USER"  /var/www/html
+echo "Holberton School" > /var/www/html/index.html
+
+# redirect "301 move permanently"
+new_config="rewrite ^/redirect_me$ https://github.com/El-gibbor permanent;"
+sed -i "51 i $new_config" /etc/nginx/sites-available/default
+service nginx start
