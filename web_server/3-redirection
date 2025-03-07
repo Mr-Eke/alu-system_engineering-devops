@@ -1,21 +1,11 @@
 #!/usr/bin/env bash
-# Script that configures a new Ubuntu machine to
-# redirect /redirect_me with a 301 status
+# Script that configures a new Ubuntu machine to respect below requirements
 
-# Update package list and install Nginx
-sudo apt-get update
+sudo apt-get update -y
 sudo apt-get install -y nginx
 
-# Create a default index.html file
-echo "Hello World!" | sudo tee /var/www/html/index.html > /dev/null
+echo "Holberton School" | sudo tee /var/www/html/index.html
+string_for_replacement="server_name _;\n\trewrite ^\/redirect_me https:\/\/github.com/El-gibbor permanent;"
+sudo sed -i "s/server_name _;/$string_for_replacement/" /etc/nginx/sites-available/default
 
-CONFIG_FILE="/etc/nginx/sites-available/default"
-
-# Add the redirect using a location block after server_name
-sudo sed -i '/server_name _;/a \\n\tlocation = /redirect_me {\n\t\treturn 301 https://github.com/El-gibbor;\n\t}' "$CONFIG_FILE"
-
-# Test the Nginx configuration
-sudo nginx -t || { echo "Nginx configuration test failed"; exit 1; }
-
-# Restart Nginx to apply changes
 sudo service nginx restart
