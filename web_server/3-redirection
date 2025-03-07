@@ -1,16 +1,21 @@
 #!/usr/bin/env bash
-# Install nginx on web-01 server, listening on port 80 (default),
+# Install nginx on server, listening on port 80 (default),
 # and return a page that contains the expected output string
 
 sudo apt-get -y update
 sudo apt-get -y install nginx
-ufw allow 80
 
-# reassign ownership to user acct so that they can be writeable
-sudo chown -R "$USER":"$USER"  /var/www/html
-echo "Holberton School" > /var/www/html/index.html
+ufw allow 80  # port listening on
 
-# redirect "301 move permanently"
-new_config="rewrite ^/redirect_me$ https://github.com/El-gibbor permanent;"
-sed -i "51 i $new_config" /etc/nginx/sites-available/default
-service nginx start
+mkdir -p /var/www/html
+# reassign ownership to user acct
+sudo chown -R "$USER":"$USER" /var/www/html
+echo "Holberton School" | sudo tee /var/www/html/index.html
+sudo service nginx start
+
+# Permanently redirects /redirect_me to another page.
+
+new_config="rewrite ^/redirect_me$ https://github.com/El-gibbodddr permanent;"
+# Insert redirection in nginx config file
+sudo sed -i "51 i $new_config" /etc/nginx/sites-available/default
+sudo service nginx restart
