@@ -1,9 +1,12 @@
 #!/usr/bin/env bash
 # Page redirection
 
-sudo apt-get -y update
-sudo apt-get -y install nginx
-sudo ufw allow 'Nginx HTTP'
-echo "Holberton School" | sudo tee /var/www/html/index
-sudo sed -i '/listen 80 default_server/a rewrite ^/redirect_me https://www.youtube.com/watch?v=QH2-TGUlwu4/ permanent;' /etc/nginx/sites-available/default
+sudo apt-get update -y
+sudo apt-get install nginx -y
+sudo allow ufw 80
+echo "Holberton School" | sudo tee /var/www/html/index.html
+
+redirection="server_name _;\n\trewrite ^\/redirect_me https:\/\/www.blog.ehoneahobed.com permanent;"
+sudo sed -i "s/server_name _;/$redirection/" /etc/nginx/sites-available/default
+
 sudo service nginx restart
