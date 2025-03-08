@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+# Nginx Installation and Page redirection
+
+sudo apt-get update
+sudo apt-get install -y nginx
+
+echo "Holberton School" | sudo tee /var/www/html/index.html
+
+# Page Redirection (301, Permanently)
+sudo sed -i '/listen \[::\]:80 default_server;/a \\trewrite ^/redirect_me https://github.com/El-gibbor permanent;' /etc/nginx/sites-available/default
+
+# 404 error page
+echo "Ceci n'est pas une page" | sudo tee /var/www/html/404.html
+sudo sed -i '/listen \[::\]:80 default_server;/a \\terror_page 404 /404.html;' /etc/nginx/sites-available/default
+
+sudo nginx -t
+sudo service nginx restart
