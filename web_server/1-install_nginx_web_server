@@ -1,14 +1,10 @@
 #!/usr/bin/env bash
-# Install nginx on server, listening on port 80 (default),
-# and return a page that contains the expected output string
+# Install nginx webserver on a new Ubuntu machine
 
-sudo apt-get -y update
-sudo apt-get -y install nginx
+sudo apt-get update
+sudo apt-get install -y nginx
 
-ufw allow 80  # port listening on
-
-mkdir -p /var/www/html
-# reassign ownership to user acct
-sudo chown -R "$USER":"$USER" /var/www/html
 echo "Holberton School" | sudo tee /var/www/html/index.html
+
+sudo nginx -t
 sudo service nginx start
