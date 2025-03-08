@@ -1,12 +1,11 @@
 #!/usr/bin/env bash
-# Page redirection
+# Nginx Installation and Page redirection
+sudo apt-get update
+sudo apt-get install -y nginx
 
-sudo apt-get update -y
-sudo apt-get install nginx -y
-sudo allow ufw 80
 echo "Holberton School" | sudo tee /var/www/html/index.html
 
-redirection="server_name _;\n\trewrite ^\/redirect_me https:\/\/www.blog.ehoneahobed.com permanent;"
-sudo sed -i "s/server_name _;/$redirection/" /etc/nginx/sites-available/default
-
-sudo service nginx restart
+# Page Redirection (301, Permanently)
+sudo sed -i '/listen \[::\]:80 default_server;/a \\trewrite ^/redirect_me https://github.com/El-gibbor permanent;' /etc/nginx/sites-available/default
+sudo nginx -t
+sudo service nginx start
