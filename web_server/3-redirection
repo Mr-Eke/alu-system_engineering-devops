@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Configuring  Nginx server so that /redirect_me is redirecting to another page.
+# Configuring  Nginx server to redirect /redirect_me page elsewhere.
 
 sudo apt-get -y update
 sudo apt-get -y install nginx
@@ -7,9 +7,9 @@ sudo apt-get -y install nginx
 echo "Holberton School" | sudo tee /var/www/html/index.html
 
 # redirection config
-replacement="server_name _;\\
+config_str="server_name _;\\
     rewrite ^/redirect_me https://github.com/Elgibbor/ permanent;"
-sudo sed -i "s|server_name _;|$replacement|" /etc/nginx/sites-available/default
+sudo sed -i "s|server_name _;|$config_str|" /etc/nginx/sites-available/default
 
 sudo nginx -t
 sudo service nginx start
