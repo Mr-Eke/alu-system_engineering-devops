@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+# Configure web-02 to be identical with web-01
+
+sudo apt-get update
+sudo apt-get install -y nginx
+
+echo "Holberton School" | sudon tee /var/www/html/index.html
+
+# 301 permanent redirect
+config_str="erver_name _;\\
+    rewrite ^/redirect_me https://github.com permanent;"
+sudo sed -i "s|server_name _;|$config_str|" /etc/nginx/sites-available/default
+
+# 404 error page
+echo "Ceci n'est pas une page" | sudo tee /var/www/html/404.html
+config_page="listen 80 default_server;\\n\\terror_page 404 /404.html;\\n\\tlocation = /404.html {\\n\\troot /var/www/html;\\n\\t\\tinternal;\\n\\t}" 
+sudo sed -i "s|listen 80 default_server;|$config_page|" /etc/nginx/sites-available/default
+
+# test and restart
+sudo nginx -t
+sudo service nginx restart
