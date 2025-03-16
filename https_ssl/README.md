@@ -7,7 +7,7 @@ This project focuses on configuring HTTPS/SSL using HAProxy, setting up domain s
 ## 1. Configuring Subdomains
 We configure the domain zone so that the subdomain `www` points to the load balancer IP (`lb-01`). Additional subdomains are added to facilitate easier access.
 
-### Bash Script for Domain and Subdomain Information
+### Bash Script for Subdomain Information
 A Bash script is required to audit domain and subdomain information. The script accepts two arguments:
 - **domain** (mandatory): The domain name to audit.
 - **subdomain** (optional): A specific subdomain to audit.
